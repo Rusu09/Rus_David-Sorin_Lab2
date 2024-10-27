@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Policy;
 
@@ -23,5 +24,6 @@ namespace Rus_David_Sorin_Lab2.Models
         public int? AuthorID {  get; set; }
         [Display(Name = "Author Name")] 
         public Author? Author { get; set; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }
