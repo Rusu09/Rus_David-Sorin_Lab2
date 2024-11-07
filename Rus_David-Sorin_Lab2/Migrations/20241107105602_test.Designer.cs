@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rus_David_Sorin_Lab2.Data;
 
@@ -11,9 +12,11 @@ using Rus_David_Sorin_Lab2.Data;
 namespace Rus_David_Sorin_Lab2.Migrations
 {
     [DbContext(typeof(Rus_David_Sorin_Lab2Context))]
-    partial class Rus_David_Sorin_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20241107105602_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,32 +102,6 @@ namespace Rus_David_Sorin_Lab2.Migrations
                     b.ToTable("BookCategory");
                 });
 
-            modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Borrowing", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int?>("BookID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MemberID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("BookID");
-
-                    b.HasIndex("MemberID");
-
-                    b.ToTable("Borrowing");
-                });
-
             modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Category", b =>
                 {
                     b.Property<int>("ID")
@@ -140,34 +117,6 @@ namespace Rus_David_Sorin_Lab2.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Member", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Member");
                 });
 
             modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Publisher", b =>
@@ -221,21 +170,6 @@ namespace Rus_David_Sorin_Lab2.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Borrowing", b =>
-                {
-                    b.HasOne("Rus_David_Sorin_Lab2.Models.Book", "Book")
-                        .WithMany("Borrowings")
-                        .HasForeignKey("BookID");
-
-                    b.HasOne("Rus_David_Sorin_Lab2.Models.Member", "Member")
-                        .WithMany("Borrowings")
-                        .HasForeignKey("MemberID");
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Member");
-                });
-
             modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Author", b =>
                 {
                     b.Navigation("Books");
@@ -244,18 +178,11 @@ namespace Rus_David_Sorin_Lab2.Migrations
             modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Book", b =>
                 {
                     b.Navigation("BookCategories");
-
-                    b.Navigation("Borrowings");
                 });
 
             modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Category", b =>
                 {
                     b.Navigation("BookCategories");
-                });
-
-            modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Member", b =>
-                {
-                    b.Navigation("Borrowings");
                 });
 
             modelBuilder.Entity("Rus_David_Sorin_Lab2.Models.Publisher", b =>
