@@ -29,7 +29,12 @@ namespace Rus_David_Sorin_Lab2.Pages.Borrowings
                 return NotFound();
             }
 
-            var borrowing = await _context.Borrowing.FirstOrDefaultAsync(m => m.ID == id);
+            var borrowing = await _context.Borrowing
+                .Include(b => b.Member)
+                .Include(b => b.Book)
+                .Include(b => b.Book.Author)
+                .Include(b => b.Book.Publisher)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (borrowing == null)
             {
